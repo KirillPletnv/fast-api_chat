@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <base href="." />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Registration</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='styles/reg.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Chat Registration</h1>
+        <form id="registrationForm">
+            <!-- <form id="registrationForm" onsubmit="return validateForm(event)"> -->
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" required>
+                <div class="error" id="nameError">Please enter a valid name</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+                <div class="error" id="emailError">Please enter a valid email address</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+                <div class="error" id="passwordError">Password must be at least 8 characters</div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" required>
+                <div class="error" id="confirmPasswordError">Passwords do not match</div>
+            </div>
+
+            <button id="registerButton">Register</button>
+            <!-- <button type="submit" id="registerButton">Register</button> -->
+        </form>
+        <div class="success-message" id="successMessage">Registration successful!</div>
+        <a href="{{ url_for('get_login_html') }}" class="auth-link">Authorization</a>
+    </div>
+
+    <script src="{{ url_for('static', path='js/reg.js') }}"></script>
+</body>
+
+</html>

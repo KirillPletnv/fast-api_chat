@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres
+    environment: 
+      POSTGERS_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}      
+    ports:
+      - "5432:5432"
+    volumes:
+      - script_db:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - script_net
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    
+
+  base_script:
+    build: .
+    container_name: base_script
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_NAME: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+    ports:
+      - "8080:80"
+    networks:
+      - script_net
+    ports:
+      - "8080:80"
+	
+    volumes:
+      - .:/app:rw
+    user: "test_user"  
+    command: >
+      sh -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80"
+
+volumes:
+  script_db:
+
+networks:
+  script_net:
+    name: script_net

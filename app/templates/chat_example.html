@@ -1,0 +1,41 @@
+<html><head><base href="." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat Interface</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', path='styles/chat.css') }}">
+
+<!-- <style>
+
+</style> -->
+</head>
+<body>
+    <div class="chat-container">
+        <div class="users-list">
+            <div class="users-container">
+                <div class="user-item">John Doe</div>
+                <div class="user-item">Jane Smith</div>
+                <div class="user-item">Mike Johnson</div>
+                <div class="user-item">Sarah Williams</div>
+                <div class="user-item">David Brown</div>
+            </div>
+            <div class="logout-section">
+                <button class="logout-btn">Выход</button>
+            </div>
+        </div>
+        <div class="chat-content">
+            <div class="selected-user"></div>
+            <div class="select-chat-message">Выберите чат для общения</div>
+            <div class="chat-history"></div>
+            <div class="message-input">
+                <input type="text" placeholder="Type your message...">
+                <button>Отправить</button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', path='js/chat.js') }}"></script>
+
+<!-- <script>
+
+</script> -->
+
+</body></html>
