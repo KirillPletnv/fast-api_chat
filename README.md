@@ -10,6 +10,6 @@ docker-compose up --build
 
 http://5.35.108.213:8080/chat/login адрес в моем случае, в вашем ваш ip. Если яндекс не прервал прерываемый сервер на нем щас работает
 
-![Screenshot](https://github.com/KirillPletnv/fast-api_chat/images/screen1.png)
+![Screenshot](images/screen1.png)
 
-![Screenshot](https://github.com/KirillPletnv/fast-api_chat/images/screen2.png)
+![Screenshot](images/screen2.png)
