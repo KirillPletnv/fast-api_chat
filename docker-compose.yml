@@ -36,9 +36,7 @@ services:
     ports:
       - "8080:80"
     networks:
-      - script_net
-    ports:
-      - "8080:80"	
+      - script_net    
     volumes:
       - .:/app:rw
     user: "test_user"  
