@@ -13,3 +13,8 @@ http://5.35.108.213:8080/chat/login адрес в моем случае, в ва
 ![Screenshot](images/screen1.png)
 
 ![Screenshot](images/screen2.png)
+
+![Screenshot](images/screen_3.1.png)
+
+![Screenshot](images/screen_3.png)
+
