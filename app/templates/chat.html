@@ -38,6 +38,39 @@
                     <div class="user-item">Sarah Williams</div>
                     <div class="user-item">David Brown</div> -->
                 </div>
+
+
+
+
+                <button class="open-modal-btn" id="openFileModal" type="button" style="margin-top: auto;">Файловая</button>
+
+                <!-- Модальное окно для работы с файлами -->
+                <div id="fileModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h3>Файлошная</h3>
+
+                        <!-- Форма для загрузки файлов -->
+                        <form id="uploadFileForm" enctype="multipart/form-data">
+                            <label for="fileName">Название файла:</label>
+                            <input type="text" id="fileName" name="fileName" required>
+
+                            <label for="fileInput">Выберите файл:</label>
+                            <input type="file" id="fileInput" name="file" required>
+
+                            <button type="submit">Отправить файл</button>
+                        </form>
+
+
+                        <div class="files-section">
+                            <h4>Доступные файлы:</h4>
+                            <div id="filesList" class="files-list">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="logout-section">
                     <button class="logout-btn">Выход</button>
                 </div>
@@ -53,6 +86,8 @@
             </div>
         </div>
         <script src="{{ url_for('static', path='js/chat.js') }}"></script>
+        <script src="{{ url_for('static', path='js/file-modal.js') }}"></script>
+
     
         <!-- <script>
     

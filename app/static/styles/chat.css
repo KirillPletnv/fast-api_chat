@@ -7,13 +7,13 @@
 
 body {
     height: 100vh;
-    background: #f0f0f0; /* Серый фон */
+    background: #f0f0f0;
 }
 
 .read-icon {
-    margin-left: 8px; /* Отступ от текста сообщения */
-    color: #FFA07A; /* Зеленый цвет */
-    font-size: 12px; /* Размер галочки */
+    margin-left: 8px;
+    color: #FFA07A;
+    font-size: 12px;
 }
 
 .chat-container {
@@ -166,9 +166,9 @@ body {
     background-color: #909090;
 }
 
-/* Стили для модального окна */
+
 .modal {
-    display: none; /* Скрыто по умолчанию */
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -176,38 +176,38 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный чёрный фон */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-    background-color: #f5f5f5; /* Светло-серый фон, как в .users-list */
+    background-color: #f5f5f5;
     margin: 10% auto;
     padding: 20px;
-    border: 1px solid #ddd; /* Граница, как в .users-list */
-    border-radius: 10px; /* Скруглённые углы, как в .chat-container */
+    border: 1px solid #ddd;
+    border-radius: 10px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Тень, как в .chat-container */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 .modal-content h2 {
     font-size: 1.5rem;
-    color: #606060; /* Цвет текста, как в .logout-btn */
+    color: #606060;
     margin-bottom: 20px;
 }
 
 .modal-content label {
     display: block;
     font-size: 1rem;
-    color: #606060; /* Цвет текста, как в .logout-btn */
+    color: #606060;
     margin-bottom: 10px;
 }
 
 .modal-content input[type="text"] {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ddd; /* Граница, как в .message-input input */
-    border-radius: 5px; /* Скруглённые углы, как в .message-input input */
+    border: 1px solid #ddd;
+    border-radius: 5px;
     outline: none;
     font-size: 1rem;
     margin-bottom: 20px;
@@ -216,17 +216,17 @@ body {
 .modal-content button {
     width: 100%;
     padding: 12px;
-    background-color: #606060; /* Цвет фона, как в .logout-btn */
+    background-color: #606060;
     color: white;
     border: none;
-    border-radius: 5px; /* Скруглённые углы, как в .logout-btn */
+    border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s;
 }
 
 .modal-content button:hover {
-    background-color: #909090; /* Цвет фона при наведении, как в .logout-btn:hover */
+    background-color: #909090;
 }
 
 .close {
@@ -240,41 +240,78 @@ body {
 
 .close:hover,
 .close:focus {
-    color: #606060; /* Цвет при наведении, как в .logout-btn:hover */
+    color: #606060;
 }
 
 
 .room-item {
-    padding: 15px; /* Такой же отступ, как у .user-item */
-    border-radius: 8px; /* Скруглённые углы, как у .user-item */
-    margin-bottom: 10px; /* Отступ снизу, как у .user-item */
-    cursor: pointer; /* Курсор в виде указателя, как у .user-item */
-    transition: background-color 0.3s; /* Плавное изменение фона, как у .user-item */
-    background-color: #f5f5f5; /* Фон, как у .user-item */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #f5f5f5;
 }
 
 .room-item:hover {
-    background-color: #e0e0e0; /* Цвет фона при наведении, как у .user-item:hover */
+    background-color: #e0e0e0;
 }
 
 .room-item.active {
-    background-color: #808080; /* Цвет фона активного элемента, как у .user-item.active */
-    color: white; /* Цвет текста активного элемента, как у .user-item.active */
+    background-color: #808080;
+    color: white;
 }
 
-/* Стили для кнопки OpenModal */
+
 .open-modal-btn {
-    width: 100%; /* Ширина на весь контейнер */
-    padding: 12px; /* Отступы внутри кнопки */
-    background-color: #606060; /* Цвет фона */
-    color: white; /* Цвет текста */
-    border: none; /* Убираем границу */
-    border-radius: 5px; /* Скруглённые углы */
-    cursor: pointer; /* Курсор в виде указателя */
-    transition: background-color 0.3s; /* Плавное изменение фона */
-    margin-bottom: 10px; /* Отступ снизу */
+    width: 100%;
+    padding: 12px;
+    background-color: #606060;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
 }
 
 .open-modal-btn:hover {
     background-color: #909090; /* Цвет фона при наведении */
+}
+
+
+/* Стили для файлового модального окна */
+.files-section {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.files-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.file-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.file-item a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.file-item a:hover {
+    text-decoration: underline;
+}
+
+#uploadFileForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#uploadFileForm input[type="file"] {
+    padding: 5px;
 }

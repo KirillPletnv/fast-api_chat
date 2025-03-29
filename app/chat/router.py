@@ -325,3 +325,125 @@ async def mark_message_as_read(message_id: int, user_id: Annotated[int, Depends(
             exclude_user_ids=[user_id]  # Исключаем текущего пользователя
         )
         return {"detail": "Сообщение помечено как прочитанное"}
+
+
+import os
+from datetime import datetime
+from fastapi import UploadFile, File
+from fastapi.responses import FileResponse
+from fastapi import Form
+from fastapi.responses import JSONResponse
+
+
+UPLOAD_DIR = "uploads"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+
+
+@api_chat_router.post("/upload-file/")
+async def upload_file(
+    file_name: str = Form(..., min_length=1, max_length=100),
+    file: UploadFile = File(...), dependencies=Depends(get_current_user_id_dependence)):
+    try:
+        logger.info(f"Начало загрузки файла. Имя: {file_name}, размер: {file.size} байт")
+
+
+        if not file_name or any(c in file_name for c in '/\\?%*:|"<>'):
+            raise HTTPException(status_code=400, detail="Недопустимое имя файла")
+
+
+        original_extension = os.path.splitext(file.filename)[1]
+
+        final_filename = f"{file_name}{original_extension}"
+        file_path = os.path.join(UPLOAD_DIR, final_filename)
+        if os.path.exists(file_path):
+            logger.warning(f"Файл уже существует: {final_filename}")
+            raise HTTPException(status_code=400, detail="Файл с таким именем уже существует")
+
+
+
+        if os.path.exists(file_path):
+            logger.warning(f"Файл уже существует: {file_name}")
+            raise HTTPException(status_code=400, detail="Файл с таким именем уже существует")
+
+
+        with open(file_path, "wb") as buffer:
+            content = await file.read()
+            buffer.write(content)
+
+        logger.info(f"Файл сохранен: {file_name}, размер: {len(content)} байт")
+
+        return JSONResponse({
+            "status": "success",
+            "filename": file_name,
+            "saved_at": datetime.now().isoformat(),
+            "size": len(content)
+        })
+
+    except HTTPException as he:
+        logger.error(f"HTTP ошибка: {he.detail}")
+        raise he
+    except Exception as e:
+        logger.error(f"Ошибка загрузки: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail="Internal server error"
+        )
+
+@api_chat_router.get("/list-files/")
+async def list_files():
+    try:
+        logger.info("Запрос списка файлов")
+
+        files = []
+        for filename in os.listdir(UPLOAD_DIR):
+            file_path = os.path.join(UPLOAD_DIR, filename)
+            if os.path.isfile(file_path):
+                file_info = {
+                    "name": filename,
+                    "size": os.path.getsize(file_path),
+                    "upload_date": datetime.fromtimestamp(
+                        os.path.getmtime(file_path)
+                    ).isoformat()
+                }
+                files.append(file_info)
+                logger.debug(f"Найден файл: {filename}, размер: {file_info['size']} байт")
+
+        logger.info(f"Возвращено {len(files)} файлов")
+        return {"files": files}
+
+    except Exception as e:
+        logger.error(f"Ошибка получения списка файлов: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Не удалось получить список файлов: {str(e)}"
+        )
+
+
+@api_chat_router.get("/download-file/{filename}")
+async def download_file(filename: str):
+    try:
+        logger.info(f"Запрос на скачивание файла: {filename}")
+
+        file_path = os.path.join(UPLOAD_DIR, filename)
+
+        if not os.path.exists(file_path):
+            logger.error(f"Файл не найден: {filename}")
+            raise HTTPException(status_code=404, detail="Файл не найден")
+
+        logger.info(f"Отправка файла: {filename}")
+        return FileResponse(
+            path=file_path,
+            filename=filename,
+            media_type="application/octet-stream"
+        )
+
+    except HTTPException as he:
+        logger.error(f"Ошибка скачивания (HTTP): {he.detail}")
+        raise he
+    except Exception as e:
+        logger.error(f"Ошибка скачивания файла: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Не удалось скачать файл: {str(e)}"
+        )
