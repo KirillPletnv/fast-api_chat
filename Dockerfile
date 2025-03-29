@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 
-RUN groupadd -r test_user && useradd -r -g test_user test_user
+RUN mkdir -p /app/uploads && groupadd -r test_user && useradd -r -g test_user -u 1000 test_user
 
 RUN chown -R test_user:test_user /app
 
